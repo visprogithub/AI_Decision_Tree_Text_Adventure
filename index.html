@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Add security headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <title>AI Implementation Decision Tree</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <button class="back-button" onclick="goBack()">←</button>
+        <section id="start" class="card active">
+            <h2>What do you need the AI to do?</h2>
+            <div class="button-container">
+            <a href="#answers" class="button" data-target="answers">Find answers in documents</a>
+            <a href="#automate" class="button" data-target="automate">Automate multi-step processes</a>
+            <a href="#reports" class="button" data-target="reports">Create structured reports or generate content</a>
+            <a href="#decisions" class="button" data-target="decisions">Help make complex decisions</a>
+            <a href="#ai_vs_automation" class="button" data-target="ai_vs_automation">Decide whether AI or traditional automation is needed</a>
+            <a href="#options" class="button" data-target="options">Let me look at the options</a>
+            </div>
+            <img src="1739890806719.gif" alt="Start Image">
+        </section>
+
+        <section id="answers" class="card">
+            <img src="assets/answers_image.jpg" alt="Answers Image">
+            <h2>What kind of documents do you need to search?</h2>
+            <a href="#rag" class="button" data-target="rag">PDFs, Word docs, unstructured text</a>
+            <a href="#function_calling_search" class="button" data-target="function_calling_search">Structured databases (SQL, APIs)</a>
+            <a href="#hybrid_rag" class="button" data-target="hybrid_rag">Both structured and unstructured data</a>
+            <a href="#graph_rag" class="button" data-target="graph_rag">Need deeper relationships between data points?</a>
+            <a href="#agentic_rag" class="button" data-target="agentic_rag">Need adaptive retrieval across multiple sources?</a>
+            <a href="#cag" class="button" data-target="cag">Limited storage or using small AI models?</a>
+            <a href="#realtime_data" class="button" data-target="realtime_data">Do the answers need to be updated in real-time?</a>
+            <p>Example: "We need AI to search policies and compliance documents." → RAG + Vector DB</p>
+        </section>
+
+        <section id="automate" class="card">
+            <h2>How many steps does the process involve?</h2>
+            <a href="#api_chaining" class="button" data-target="api_chaining">1-2 steps</a>
+            <a href="#ai_decisions_yes" class="button" data-target="ai_decisions_yes">3 or more steps</a>
+        </section>
+
+        <!-- Add "data-target" attribute to all links -->
+
+       <section id="ai_decisions_yes" class="card">
+            <h2>Does the AI need to make decisions as part of the workflow?</h2>
+            <a href="#hybrid_ai" class="button" data-target="hybrid_ai">Yes, AI needs to make decisions</a>
+            <a href="#ai_decisions_no" class="button" data-target="ai_decisions_no">No, AI doesn't need to make decisions</a>
+        </section>
+
+        <section id="ai_decisions_no" class="card">
+            <h2>Does the process require coordination, error handling, or retries?</h2>
+            <a href="#orchestration_yes" class="button" data-target="orchestration_yes">Yes, the process requires coordination, error handling, or retries</a>
+            <a href="#orchestration_no" class="button" data-target="orchestration_no">No, the process does not require coordination, error handling, or retries</a>
+            <p>Example: "Automating employee onboarding: verifying documents, assigning training, setting up accounts." → Workflow Orchestration</p>
+        </section>
+
+        <section id="reports" class="card">
+            <h2>What kind of content is being generated?</h2>
+            <a href="#basic_content" class="button" data-target="basic_content">Basic (emails, simple text responses)</a>
+            <a href="#complex_content" class="button" data-target="complex_content">Complex (medical reports, legal summaries, financial statements)</a>
+        </section>
+
+        <section id="complex_content" class="card">
+            <h2>Does the AI need to explain its decisions?</h2>
+            <a href="#explain_yes" class="button" data-target="explain_yes">Yes, AI needs to explain its decisions</a>
+            <a href="#explain_no" class="button" data-target="explain_no">No, AI does not need to explain its decisions</a>
+        </section>
+
+        <section id="rag" class="card">
+            <img src="assets/rag_image.jpg" alt="RAG Image">
+            <h2>Retrieval-Augmented Generation (RAG)</h2>
+            <p><strong>What it does</strong>: Combines document search + text generation.</p>
+            <p><strong>Example</strong>: Chatbots pull answers from manuals before replying.</p>
+            <p><strong>Why it matters</strong>: Reduces errors, cites sources.</p>
+            <p><strong>Tools</strong>:</p>
+            <ul>
+                <li><em>AWS</em>: Kendra + Bedrock</li>
+                <li><em>Azure</em>: AI Search + Azure OpenAI</li>
+                <li><em>Alternative</em>: Elasticsearch, Pinecone</li>
+            </ul>
+            <p><strong>Adopt</strong>:</p>
+            <ol>
+                <li>Index docs with <strong>Kendra</strong>/<strong>AI Search</strong>.</li>
+                <li>Generate answers via <strong>Bedrock</strong>/<strong>Azure OpenAI</strong>.</li>
+                <li>Add source citations.</li>
+            </ol>
+            <p><strong>Visual</strong>: Magnifying glass over docs + chatbot.</p>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+        
+        <section id="function_calling_search" class="card">
+            <img src="assets/function_calling_image.jpg" alt="Function Calling Image">
+            <h2>Function Calling</h2>
+            <p><strong>What it does</strong>: Lets AI pull live data (e.g., inventory, weather).</p>
+            <p><strong>Example</strong>: “Is Product X in stock?” → real-time database check.</p>
+            <p><strong>Why it matters</strong>: Avoids outdated answers.</p>
+            <p><strong>Tools</strong>:</p>
+            <ul>
+                <li><em>AWS</em>: Lambda + API Gateway</li>
+                <li><em>Azure</em>: Azure Functions</li>
+                <li><em>Alternative</em>: Zapier</li>
+            </ul>
+            <p><strong>Adopt</strong>:</p>
+            <ol>
+                <li>Expose APIs (e.g., CRM, inventory).</li>
+                <li>Call APIs via <strong>Lambda</strong>/<strong>Azure Functions</strong>.</li>
+                <li>Monitor latency.</li>
+            </ol>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+
+        <section id="hybrid_rag" class="card">
+            <img src="assets/hybrid_rag_image.jpg" alt="Hybrid RAG Image">
+            <h2>Hybrid RAG</h2>
+            <p><strong>What it does</strong>: Mixes structured (databases) + unstructured (text) data.</p>
+            <p><strong>Example</strong>: Medical tools analyze patient records <em>and</em> research papers.</p>
+            <p><strong>Why it matters</strong>: Balances precision + context.</p>
+            <p><strong>Tools</strong>:</p>
+            <ul>
+                <li><em>AWS</em>: Kendra + Aurora</li>
+                <li><em>Azure</em>: AI Search + SQL DB</li>
+                <li><em>Alternative</em>: Databricks</li>
+            </ul>
+            <p><strong>Adopt</strong>:</p>
+            <ol>
+                <li>Link structured data (e.g., product SKUs) to documents.</li>
+                <li>Use <strong>Databricks</strong> for unified queries.</li>
+                <li>Validate hybrid answers.</li>
+            </ol>
+            <div class="warning-box">
+                <p><strong>⚠️ Resource Requirements:</strong></p>
+                <ul>
+                    <li>High-performance vector database</li>
+                    <li>Significant storage capacity</li>
+                    <li>Regular data synchronization</li>
+                    <li>Complex error handling</li>
+                </ul>
+                <p><strong>💰 Cost Impact:</strong> Higher than standard RAG</p>
+                <p><strong>🔄 Maintenance:</strong> Regular updates needed</p>
+            </div>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+
+        <section id="graph_rag" class="card">
+            <img src="assets/graph_rag_image.jpg" alt="Graph RAG Image">
+            <h2>Graph RAG</h2>
+            <p><strong>What it does</strong>: Maps connections between data (e.g., fraud networks).</p>
+            <p><strong>Example</strong>: Uncover financial fraud via transaction patterns.</p>
+            <p><strong>Why it matters</strong>: Reveals hidden relationships.</p>
+            <p><strong>Tools</strong>:</p>
+            <ul>
+                <li><em>AWS</em>: Neptune</li>
+                <li><em>Azure</em>: Cosmos DB (Graph API)</li>
+                <li><em>Alternative</em>: Neo4j</li>
+            </ul>
+            <p><strong>Adopt</strong>:</p>
+            <ol>
+                <li>Model relationships (e.g., customer ↔ product).</li>
+                <li>Query with <strong>Neptune/Cosmos DB</strong>.</li>
+                <li>Visualize with <strong>Neo4j Bloom</strong>.</li>
+            </ol>
+            <div class="warning-box">
+                <p><strong>⚠️ System Requirements:</strong></p>
+                <ul>
+                    <li>Specialized graph database expertise needed</li>
+                    <li>Complex data modeling skills required</li>
+                    <li>Higher infrastructure costs</li>
+                    <li>Performance tuning expertise needed</li>
+                </ul>
+                <p><strong>⏱️ Setup Time:</strong> Longer initial setup for graph modeling</p>
+                <p><strong>👥 Team Needs:</strong> Graph DB experts, data modelers</p>
+            </div>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+
+        <section id="agentic_rag" class="card">
+            <img src="assets/agentic_rag_image.jpg" alt="Agentic RAG Image">
+            <h2>Agentic RAG</h2>
+            <p><strong>What it does</strong>: AI agents choose retrieval methods (e.g., docs vs. web).</p>
+            <p><strong>Example</strong>: Travel assistant picks flight APIs <em>or</em> hotel reviews.</p>
+            <p><strong>Why it matters</strong>: Adapts to ambiguous questions.</p>
+            <p><strong>Tools</strong>:</p>
+            <ul>
+                <li><em>AWS</em>: Step Functions + Lambda</li>
+                <li><em>Azure</em>: Logic Apps + Functions</li>
+                <li><em>Alternative</em>: LangChain</li>
+            </ul>
+            <p><strong>Adopt</strong>:</p>
+            <ol>
+                <li>Define rules (e.g., “Use Kendra for technical queries”).</li>
+                <li>Route dynamically with <strong>LangChain Agents</strong>.</li>
+                <li>Audit agent decisions.</li>
+            </ol>
+            <div class="warning-box">
+                <p><strong>⚠️ Implementation Complexity:</strong></p>
+                <ul>
+                    <li>Complex agent decision logic required</li>
+                    <li>Higher latency due to multiple retrieval attempts</li>
+                    <li>Increased API costs from multiple searches</li>
+                    <li>Requires sophisticated error handling</li>
+                </ul>
+                <p><strong>🔄 Maintenance:</strong> Regular monitoring of agent decisions and retrieval patterns</p>
+                <p><strong>💰 Cost Note:</strong> Higher costs due to multiple API calls per query</p>
+            </div>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+
+        <section id="cag" class="card">
+            <img src="assets/cag_image.jpg" alt="CAG Image">
+            <h2>Cache-Augmented Generation (CAG)</h2>
+            <p><strong>What it does</strong>: Reuses frequent responses (like browser cache).</p>
+            <p><strong>Example</strong>: Chatbots answer “store hours” instantly.</p>
+            <p><strong>Why it matters</strong>: Saves costs for small models.</p>
+            <p><strong>Tools</strong>:</p>
+            <ul>
+                <li><em>AWS</em>: ElastiCache (Redis)</li>
+                <li><em>Azure</em>: Azure Cache for Redis</li>
+                <li><em>Alternative</em>: Redis Enterprise</li>
+            </ul>
+            <p><strong>Adopt</strong>:</p>
+            <ol>
+                <li>Cache common queries (e.g., FAQs).</li>
+                <li>Set TTL to refresh stale answers.</li>
+                <li>Track cache hit rates.</li>
+            </ol>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+
+        <section id="realtime_data" class="card">
+            <h2>Do the answers need to be updated in real-time?</h2>
+            <a href="#realtime_yes" class="button" data-target="realtime_yes">Yes, they need to use Real-Time Data Pipelines</a>
+            <a href="#realtime_no" class="button" data-target="realtime_no">No, they don't need to use Real-Time Data Pipelines</a>
+        </section>
+
+        <section id="realtime_yes" class="card">
+            <img src="assets/realtime_data_image.jpg" alt="Real-Time Data Image">
+            <h2>Real-Time Data Pipeline</h2>
+            <p><strong>What it does</strong>: Feeds live data (e.g., sensors) to AI.</p>
+            <p><strong>Example</strong>: Stock bots react to market swings instantly.</p>
+            <p><strong>Why it matters</strong>: Adapts to fast-changing data.</p>
+            <p><strong>Tools</strong>:</p>
+            <ul>
+                <li><em>AWS</em>: Kinesis + SageMaker</li>
+                <li><em>Azure</em>: Event Hubs + Azure ML</li>
+                <li><em>Alternative</em>: Confluent</li>
+            </ul>
+            <p><strong>Adopt</strong>:</p>
+            <ol>
+                <li>Stream data via <strong>Kinesis</strong>/<strong>Event Hubs</strong>.</li>
+                <li>Process with <strong>SageMaker</strong>/<strong>Azure ML</strong>.</li>
+                <li>Alert on anomalies.</li>
+            </ol>
+            <div class="warning-box">
+                <p><strong>⚠️ Real-Time Considerations:</strong></p>
+                <ul>
+                    <li>High availability infrastructure required</li>
+                    <li>Complex error recovery needed</li>
+                    <li>Potential data consistency challenges</li>
+                    <li>Scaling complexity for peak loads</li>
+                </ul>
+                <p><strong>💰 Infrastructure:</strong> Higher costs for real-time processing</p>
+                <p><strong>⚡ Performance:</strong> Need for careful latency management</p>
+            </div>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+
+        <section id="api_chaining" class="card">
+            <img src="assets/api_chaining_image.jpg" alt="API Chaining Image">
+            <h2>API Chaining</h2>
+            <p><strong>What it does</strong>: Links AI steps (e.g., summarize → translate → email).</p>
+            <p><strong>Example</strong>: Auto-generate weekly sales reports.</p>
+            <p><strong>Why it matters</strong>: Automates multi-step workflows.</p>
+            <p><strong>Tools</strong>:</p>
+            <ul>
+                <li><em>AWS</em>: Step Functions</li>
+                <li><em>Azure</em>: Logic Apps</li>
+                <li><em>Alternative</em>: Apache Airflow</li>
+            </ul>
+            <p><strong>Adopt</strong>:</p>
+            <ol>
+                <li>Break workflows into steps.</li>
+                <li>Use <strong>Step Functions</strong>/<strong>Logic Apps</strong> to chain APIs.</li>
+                <li>Add error retries.</li>
+            </ol>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+
+        <section id="orchestration_yes" class="card">
+            <img src="assets/orchestration_image.jpg" alt="Workflow Orchestration Image">
+            <h2>Workflow Orchestration</h2>
+            <p><strong>What it does</strong>: Automates multi-step tasks (e.g., data → process → AI → output).</p>
+            <p><strong>Example</strong>: Batch process invoices → validate → email reports.</p>
+            <p><strong>Why it matters</strong>: Reduces manual glue-code, handles errors.</p>
+            <p><strong>Tools</strong>:</p>
+            <ul>
+                <li><em>AWS</em>: <strong>Step Functions</strong></li>
+                <li><em>Azure</em>: <strong>Logic Apps</strong></li>
+                <li><em>Alternative</em>: Apache Airflow</li>
+            </ul>
+            <p><strong>Adopt</strong>:</p>
+            <ol>
+                <li>Define steps visually (AWS/Azure UIs).</li>
+                <li>Add retries for flaky tasks (e.g., API calls).</li>
+                <li>Monitor executions in built-in dashboards.</li>
+            </ol>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+
+        <section id="orchestration_no" class="card">
+            <img src="assets/standard_automation_image.jpg" alt="Standard Automation Image">
+            <h2>Standard Automation</h2>
+            <p><strong>What it does</strong>: Automates repetitive, rule-based tasks without AI (e.g., data entry, file transfers).</p>
+            <p><strong>Example</strong>: Auto-process invoices → validate → send to accounting software.</p>
+            <p><strong>Why it matters</strong>: Saves time, reduces human error.</p>
+            <p><strong>Tools</strong>:</p>
+            <ul>
+                <li><em>AWS</em>: <strong>Lambda</strong> (serverless) + <strong>Step Functions</strong></li>
+                <li><em>Azure</em>: <strong>Logic Apps</strong> + <strong>Azure Functions</strong></li>
+                <li><em>Alternative</em>: UiPath, Power Automate, Jenkins</li>
+            </ul>
+            <p><strong>Adopt</strong>:</p>
+            <ol>
+                <li>Identify repetitive tasks (e.g., CSV → database uploads).</li>
+                <li>Build workflows with <strong>Logic Apps</strong>/<strong>Step Functions</strong>.</li>
+                <li>Monitor and scale with cloud-native dashboards.</li>
+            </ol>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+
+        <section id="prompt_engineering" class="card">
+            <img src="assets/prompt_engineering_image.jpg" alt="Prompt Engineering Image">
+            <h2>Prompt Engineering</h2>
+            <p><strong>What it does</strong>: Crafts inputs for better outputs (e.g., “Write as a pirate”).</p>
+            <p><strong>Example</strong>: Generate marketing taglines for eco-friendly shoes.</p>
+            <p><strong>Why it matters</strong>: Better control over creativity.</p>
+            <p><strong>Tools</strong>:</p>
+            <ul>
+                <li><em>AWS</em>: Bedrock Playground</li>
+                <li><em>Azure</em>: Azure OpenAI Studio</li>
+                <li><em>Alternative</em>: PromptFlow</li>
+            </ul>
+            <p><strong>Adopt</strong>:</p>
+            <ol>
+                <li>Iterate prompts (e.g., “Act as a doctor”).</li>
+                <li>Use <strong>PromptFlow</strong> for templates.</li>
+                <li>A/B test responses.</li>
+            </ol>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+
+        <section id="hybrid_ai" class="card">
+            <img src="assets/hybrid_ai_image.jpg" alt="Hybrid AI Image">
+            <h2>Hybrid AI</h2>
+            <p><strong>What it does</strong>: Mixes AI with rules (e.g., AI suggests → rules filter).</p>
+            <p><strong>Example</strong>: Loan approvals: AI predicts risk, rules block scores < 700.</p>
+            <p><strong>Why it matters</strong>: Balances automation + control.</p>
+            <p><strong>Tools</strong>:</p>
+            <ul>
+                <li><em>AWS</em>: SageMaker + Lambda</li>
+                <li><em>Azure</em>: Azure ML + Logic Apps</li>
+                <li><em>Alternative</em>: Pega</li>
+            </ul>
+            <p><strong>Adopt</strong>:</p>
+            <ol>
+                <li>Deploy AI model (e.g., fraud detection).</li>
+                <li>Add rules (e.g., “Reject if score < 50%”).</li>
+                <li>Audit decisions.</li>
+            </ol>
+            <p><strong>Visual</strong>: Yin-yang (AI + rules).</p>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+
+        <section id="function_calling_realtime" class="card">
+            <img src="assets/function_calling_image.jpg" alt="Function Calling Image">
+            <h2>Function Calling</h2>
+            <p><strong>What it does</strong>: Lets AI pull live data (e.g., inventory, weather).</p>
+            <p><strong>Example</strong>: “Is Product X in stock?” → real-time database check.</p>
+            <p><strong>Why it matters</strong>: Avoids outdated answers.</p>
+            <p><strong>Tools</strong>:</p>
+            <ul>
+                <li><em>AWS</em>: Lambda + API Gateway</li>
+                <li><em>Azure</em>: Azure Functions</li>
+                <li><em>Alternative</em>: Zapier</li>
+            </ul>
+            <p><strong>Adopt</strong>:</p>
+            <ol>
+                <li>Expose APIs (e.g., CRM, inventory).</li>
+                <li>Call APIs via <strong>Lambda</strong>/<strong>Azure Functions</strong>.</li>
+                <li>Monitor latency.</li>
+            </ol>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+
+        <section id="standard_ai" class="card">
+            <img src="assets/standard_ai_image.jpg" alt="Standard AI Model Image">
+            <h2>Standard/Standalone AI Model</h2>
+            <p><strong>What it does</strong>: A single AI model trained for a specific task (e.g., predictions, classification) without integration with external data or workflows.</p>
+            <p><strong>Example</strong>: Image recognition model identifying defects in manufacturing parts.</p>
+            <p><strong>Why it matters</strong>: Delivers fast, accurate results for narrow use cases.</p>
+            <p><strong>Tools</strong>:</p>
+            <ul>
+                <li><em>AWS</em>: <strong>SageMaker</strong> (train/deploy models)</li>
+                <li><em>Azure</em>: <strong>Azure Machine Learning Studio</strong></li>
+                <li><em>Alternative</em>: PyTorch, TensorFlow, MLflow</li>
+            </ul>
+            <p><strong>Adopt</strong>:</p>
+            <ol>
+                <li>Train model on labeled data (e.g., defect images).</li>
+                <li>Deploy as an API endpoint with <strong>SageMaker</strong>/<strong>Azure ML</strong>.</li>
+                <li>Integrate into apps via REST APIs.</li>
+            </ol>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+
+        <section id="traditional_ml" class="card">
+            <img src="assets/traditional_ml_image.jpg" alt="Traditional Machine Learning Image">
+            <h2>Traditional Machine Learning</h2>
+            <p><strong>What it does</strong>: Uses statistical algorithms (e.g., regression, decision trees) to learn patterns from structured data.</p>
+            <p><strong>Example</strong>: Predict customer churn using historical sales data.</p>
+            <p><strong>Why it matters</strong>: Interpretable, efficient, and ideal for tabular data.</p>
+            <p><strong>Tools</strong>:</p>
+            <ul>
+                <li><em>AWS</em>: <strong>SageMaker</strong> (built-in algorithms like XGBoost)</li>
+                <li><em>Azure</em>: <strong>Azure Machine Learning</strong> (AutoML, linear regression)</li>
+                <li><em>Alternative</em>: Scikit-learn, H2O.ai, SAS</li>
+            </ul>
+            <p><strong>Adopt</strong>:</p>
+            <ol>
+                <li>Prepare structured data (e.g., CSV, SQL tables).</li>
+                <li>Train models with <strong>SageMaker</strong>/<strong>Azure ML AutoML</strong>.</li>
+                <li>Deploy for batch or real-time predictions.</li>
+            </ol>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+
+        <section id="types_ai_automation" class="card">
+            <h2>Types of AI and Automation Explained</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Retrieval-Augmented Generation (RAG)</td>
+                        <td>Finds answers in documents by searching a knowledge base before generating responses.</td>
+                    </tr>
+                    <tr>
+                        <td>Hybrid RAG</td>
+                        <td>Combines structured (databases) and unstructured (text) data retrieval for more accurate answers.</td>
+                    </tr>
+                     <tr>
+                        <td>Graph RAG</td>
+                        <td>Uses relationships between data points (e.g., fraud networks) to provide deeper context.</td>
+                    </tr>
+                    <tr>
+                        <td>Agentic RAG</td>
+                        <td>AI agents dynamically choose the best retrieval method (e.g., docs vs. APIs) for a given question.</td>
+                    </tr>
+                    <tr>
+                        <td>Cache-Augmented Generation (CAG)</td>
+                        <td>Stores and reuses frequent responses to save costs, ideal for small AI models.</td>
+                    </tr>
+                    <tr>
+                        <td>Multi-Model AI</td>
+                        <td>Combines multiple AI models (e.g., LLM + vision) to handle tasks requiring diverse capabilities.</td>
+                    </tr>
+                    <tr>
+                        <td>API Chaining</td>
+                        <td>Connects multiple AI/API calls to automate step-by-step processes (e.g., data → process → output).</td>
+                    </tr>
+                    <tr>
+                        <td>Validation Rules & Post-Processing</td>
+                        <td>Ensures generated content follows strict formatting (e.g., JSON, legal templates).</td>
+                    </tr>
+                    <tr>
+                        <td>Fine-Tuning</td>
+                        <td>Trains a base model (e.g., GPT-4) on niche data for domain-specific accuracy.</td>
+                    </tr>
+                    <tr>
+                        <td>Prompt Engineering</td>
+                        <td>Designs input prompts to optimize AI outputs (e.g., “Write a summary in 3 sentences”).</td>
+                    </tr>
+                    <tr>
+                        <td>Chain-of-Thought (CoT) Reasoning</td>
+                        <td>Forces AI to break down complex problems step-by-step for transparency and accuracy.</td>
+                    </tr>
+                    <tr>
+                        <td>Function Calling</td>
+                        <td>Allows AI to query real-time structured data (e.g., inventory databases, CRM systems).</td>
+                    </tr>
+                    <tr>
+                        <td>Hybrid AI</td>
+                        <td>Combines AI outputs with rule-based logic (e.g., approve loans only if credit score > 700).</td>
+                    </tr>
+                    <tr>
+                        <td>Real-Time Data Pipeline</td>
+                        <td>Feeds live data (e.g., sensors, transactions) to AI models for up-to-date responses.</td>
+                    </tr>
+                    <tr>
+                        <td>Workflow Orchestration</td>
+                        <td>Coordinates multi-step processes (AI and non-AI tasks) with error handling, retries, and auditing.</td>
+                    </tr>
+                    <tr>
+                        <td>Traditional Automation</td>
+                        <td>Automates repetitive, rule-based tasks without AI (e.g., file transfers, batch data processing).</td>
+                    </tr>
+                    <tr>
+                        <td>Traditional Machine Learning</td>
+                        <td>Uses statistical algorithms (e.g., regression, decision trees) for structured data predictions.</td>
+                    </tr>
+                    <tr>
+                        <td>Standard/Standalone AI Model</td>
+                        <td>A single AI model trained for a specific task (e.g., image classification) without external data.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+
+        <section id="ai_vs_automation" class="card">
+            <h2>When should I use AI vs Traditional Automation?</h2>
+            <a href="#simple_rules" class="button" data-target="simple_rules">Simple, rule-based process → Traditional Automation</a>
+            <a href="#historical_data" class="button" data-target="historical_data">Pattern recognition with historical data → Traditional ML</a>
+            <a href="#natural_language" class="button" data-target="natural_language">Natural language or complex decisions → AI</a>
+        </section>
+
+        <section id="simple_rules" class="card">
+            <h2>Traditional Automation</h2>
+            <p><strong>What it does</strong>: Automates repetitive, rule-based tasks.</p>
+            <p><strong>Example</strong>: File transfers, batch processing, simple workflows.</p>
+            <p><strong>Tools</strong>:</p>
+            <ul>
+                <li>AWS Lambda</li>
+                <li>Azure Functions</li>
+                <li>Power Automate</li>
+            </ul>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+
+        <section id="historical_data" class="card">
+            <h2>Traditional Machine Learning</h2>
+            <p><strong>What it does</strong>: Finds patterns in structured data.</p>
+            <p><strong>Example</strong>: Customer churn prediction, fraud detection.</p>
+            <p><strong>Tools</strong>:</p>
+            <ul>
+                <li>Amazon SageMaker</li>
+                <li>Azure ML</li>
+                <li>Scikit-learn</li>
+            </ul>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+
+        <section id="natural_language" class="card">
+            <h2>AI-Based Approaches</h2>
+            <p><strong>What it does</strong>: Handles unstructured data and complex decisions.</p>
+            <p><strong>Example</strong>: Language understanding, content generation.</p>
+            <p><strong>Consider</strong>:</p>
+            <ul>
+                <li>Large Language Models</li>
+                <li>Neural Networks</li>
+                <li>Deep Learning</li>
+            </ul>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+
+        <section id="complex_multi_step" class="card">
+            <h2>Complex Multi-Step Process</h2>
+            <p>Does the process require AI decisions?</p>
+            <a href="#needs_ai" class="button" data-target="needs_ai">Yes, needs AI decisions</a>
+            <a href="#no_ai" class="button" data-target="no_ai">No, just workflow automation</a>
+        </section>
+
+        <section id="needs_ai" class="card">
+            <h2>AI Workflow Orchestration</h2>
+            <p><strong>What it does</strong>: Combines AI with workflow automation.</p>
+            <p><strong>Example</strong>: Document processing with AI validation.</p>
+            <p><strong>Tools</strong>:</p>
+            <ul>
+                <li>AWS Step Functions + SageMaker</li>
+                <li>Azure Logic Apps + Cognitive Services</li>
+                <li>Airflow + ML models</li>
+            </ul>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+
+        <section id="no_ai" class="card">
+            <h2>Traditional Workflow Orchestration</h2>
+            <p><strong>What it does</strong>: Automates complex business processes.</p>
+            <p><strong>Example</strong>: Order processing, approvals workflow.</p>
+            <p><strong>Tools</strong>:</p>
+            <ul>
+                <li>AWS Step Functions</li>
+                <li>Azure Logic Apps</li>
+                <li>Apache Airflow</li>
+            </ul>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+
+        <section id="explain_yes" class="card">
+            <h2>Chain-of-Thought Reasoning</h2>
+            <p><strong>What it does</strong>: Forces AI to "show its work" (e.g., math steps).</p>
+            <p><strong>Example</strong>: Tutoring bots explain algebra step-by-step.</p>
+            <p><strong>Why it matters</strong>: Builds trust + identifies errors.</p>
+            <p><strong>Tools</strong>:</p>
+            <ul>
+                <li><em>AWS</em>: Bedrock (Claude 3)</li>
+                <li><em>Azure</em>: Azure OpenAI (GPT-4)</li>
+                <li><em>Alternative</em>: Cohere Command</li>
+            </ul>
+            <p><strong>Adopt</strong>:</p>
+            <ol>
+                <li>Add "Show your work" to prompts.</li>
+                <li>Use <strong>Claude 3</strong><strong>GPT-4</strong> for built-in CoT.</li>
+                <li>Validate logic.</li>
+            </ol>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+
+        <section id="explain_no" class="card">
+            <h2>Will AI decisions be combined with rule-based logic?</h2>
+            <a href="#hybrid_ai_decision" class="button" data-target="hybrid_ai_decision">Yes, combine with rules</a>
+            <a href="#standard_ai" class="button" data-target="standard_ai">No, use standard AI model</a>
+            <p>Does AI need real-time external data?</p>
+            <a href="#function_calling_realtime" class="button" data-target="function_calling_realtime">Yes, needs real-time data</a>
+            <a href="#standard_ai" class="button" data-target="standard_ai">No, use standard AI model</a>
+        </section>
+
+        <section id="basic_content" class="card">
+            <h2>Prompt Engineering</h2>
+            <p><strong>What it does</strong>: Optimizes inputs for better outputs.</p>
+            <p><strong>Example</strong>: Email templates, customer service responses.</p>
+            <p><strong>Tools</strong>:</p>
+            <ul>
+                <li><em>AWS</em>: Bedrock</li>
+                <li><em>Azure</em>: Azure OpenAI Studio</li>
+                <li><em>Alternative</em>: LangChain</li>
+            </ul>
+            <p><strong>Adopt</strong>:</p>
+            <ol>
+                <li>Create prompt templates</li>
+                <li>Add context and examples</li>
+                <li>Test variations</li>
+            </ol>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+
+        <section id="validation_rules" class="card">
+            <h2>Content Validation Rules</h2>
+            <p><strong>What it does</strong>: Enforces output structure and format.</p>
+            <p><strong>Example</strong>: Legal document validation, data formatting.</p>
+            <p><strong>Tools</strong>:</p>
+            <ul>
+                <li><em>AWS</em>: Lambda functions</li>
+                <li><em>Azure</em>: Azure Functions</li>
+                <li><em>Alternative</em>: JSON Schema</li>
+            </ul>
+            <p><strong>Adopt</strong>:</p>
+            <ol>
+                <li>Define validation rules</li>
+                <li>Implement post-processing</li>
+                <li>Handle validation failures</li>
+            </ol>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+
+        <section id="fine_tuning_check" class="card">
+            <h2>Fine-Tuning Validation Check</h2>
+            <p><strong>⚠️ Warning: Fine-tuning is expensive and resource-intensive</strong></p>
+            <p>Before proceeding, confirm you have:</p>
+            <ul>
+                <li>At least 1000+ high-quality training examples</li>
+                <li>Budget for compute costs ($1000+ typically)</li>
+                <li>Time for multiple training iterations</li>
+                <li>Technical expertise for model evaluation</li>
+            </ul>
+            <p>Have you considered alternatives?</p>
+            <ul>
+                <li>Prompt engineering with examples (cheaper)</li>
+                <li>RAG with domain documents (faster)</li>
+                <li>API-based solutions (simpler)</li>
+            </ul>
+            <p>Still want to proceed with fine-tuning?</p>
+            <a href="#fine_tuning" class="button" data-target="fine_tuning">Yes, proceed to Fine-Tuning</a>
+            <a href="#prompt_engineering" class="button" data-target="prompt_engineering">No, try Prompt Engineering instead</a>
+        </section>
+
+        <section id="fine_tuning" class="card">
+            <h2>Model Fine-Tuning</h2>
+            <p><strong>What it does</strong>: Customizes AI for specific domains.</p>
+            <p><strong>Example</strong>: Medical terminology, legal language.</p>
+            <p><strong>Tools</strong>:</p>
+            <ul>
+                <li><em>AWS</em>: SageMaker</li>
+                <li><em>Azure</em>: Azure ML</li>
+                <li><em>Alternative</em>: Hugging Face</li>
+            </ul>
+            <p><strong>Adopt</strong>:</p>
+            <ol>
+                <li>Prepare training data</li>
+                <li>Fine-tune base model</li>
+                <li>Evaluate performance</li>
+            </ol>
+            <div class="warning-box">
+                <p><strong>💰 Cost Consideration:</strong> Expect $1000+ for initial training</p>
+                <p><strong>⏱️ Time Investment:</strong> 2-4 weeks for proper implementation</p>
+                <p><strong>👥 Team Needs:</strong> ML engineers, domain experts</p>
+            </div>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+
+        <section id="decisions" class="card">
+            <h2>What kind of decisions need AI support?</h2>
+            <a href="#structured_data" class="button" data-target="structured_data">Analysis of structured data (e.g., financial metrics)</a>
+            <a href="#unstructured_data" class="button" data-target="unstructured_data">Understanding unstructured data (e.g., documents, images)</a>
+            <a href="#hybrid_decision" class="button" data-target="hybrid_decision">Both structured and unstructured inputs</a>
+        </section>
+
+        <section id="structured_data" class="card">
+            <h2>Traditional Machine Learning</h2>
+            <p>For structured data analysis, traditional ML is often more efficient than deep learning.</p>
+            <a href="#traditional_ml" class="button" data-target="traditional_ml">Use Traditional Machine Learning</a>
+        </section>
+
+        <section id="unstructured_data" class="card">
+            <h2>Large Language Models</h2>
+            <p>For unstructured data, modern LLMs provide better understanding.</p>
+            <a href="#explain_yes" class="button" data-target="explain_yes">Need explanations? Use Chain-of-Thought</a>
+            <a href="#standard_ai" class="button" data-target="standard_ai">No explanations needed? Use Standard AI</a>
+        </section>
+
+        <section id="hybrid_decision" class="card">
+            <h2>Hybrid AI Approach</h2>
+            <p>Combine traditional ML with modern AI for best results.</p>
+            <a href="#hybrid_ai" class="button" data-target="hybrid_ai">Use Hybrid AI Approach</a>
+        </section>
+
+        <section id="realtime_no" class="card">
+            <h2>Static Data Processing</h2>
+            <p>For non-realtime data, choose based on data type:</p>
+            <a href="#rag" class="button" data-target="rag">Text documents → Use RAG</a>
+            <a href="#function_calling_search" class="button" data-target="function_calling_search">Structured data → Use Function Calling</a>
+            <a href="#hybrid_rag" class="button" data-target="hybrid_rag">Both → Use Hybrid RAG</a>
+        </section>
+
+        <section id="hybrid_ai_decision" class="card">
+            <h2>Hybrid AI with Rules</h2>
+            <p>Combining AI with business rules for better control.</p>
+            <a href="#hybrid_ai" class="button" data-target="hybrid_ai">Use Hybrid AI Architecture</a>
+        </section>
+
+        <section id="multi_model" class="card">
+            <h2>Multi-Model AI</h2>
+            <p><strong>What it does</strong>: Combines multiple AI models for complex tasks.</p>
+            <p><strong>Example</strong>: Vision + Language for image captioning.</p>
+            <p><strong>Tools</strong>:</p>
+            <ul>
+                <li><em>AWS</em>: SageMaker Multi-Model Endpoints</li>
+                <li><em>Azure</em>: Cognitive Services</li>
+                <li><em>Alternative</em>: Hugging Face Transformers</li>
+            </ul>
+            <p><strong>Adopt</strong>:</p>
+            <ol>
+                <li>Identify needed capabilities</li>
+                <li>Select complementary models</li>
+                <li>Orchestrate with APIs</li>
+            </ol>
+            <div class="warning-box">
+                <p><strong>⚠️ Integration Challenges:</strong></p>
+                <ul>
+                    <li>Complex model orchestration required</li>
+                    <li>Higher computational resources needed</li>
+                    <li>Multiple model versions to maintain</li>
+                    <li>Increased inference latency</li>
+                </ul>
+                <p><strong>💰 Resource Impact:</strong> Multiple model endpoints increase costs</p>
+                <p><strong>🔄 Operations:</strong> More complex monitoring and scaling</p>
+            </div>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+
+        <section id="multi_agent" class="card">
+            <h2>Multi-Agent Systems</h2>
+            <p><strong>What it does</strong>: Multiple AI agents collaborate on complex tasks, each with specialized roles.</p>
+            <p><strong>Example Use Cases</strong>:</p>
+            <ul>
+                <li>Research Assistant Team:
+                    <ul>
+                        <li>Agent 1: Searches academic papers</li>
+                        <li>Agent 2: Analyzes methodology</li>
+                        <li>Agent 3: Summarizes findings</li>
+                        <li>Agent 4: Fact-checks and validates</li>
+                    </ul>
+                </li>
+                <li>Customer Service System:
+                    <ul>
+                        <li>Agent 1: Initial customer interaction</li>
+                        <li>Agent 2: Technical diagnosis</li>
+                        <li>Agent 3: Solution lookup</li>
+                        <li>Agent 4: Satisfaction follow-up</li>
+                    </ul>
+                </li>
+            </ul>
+            <p><strong>Tools</strong>:</p>
+            <ul>
+                <li><em>AWS</em>: Bedrock + Lambda for agent orchestration</li>
+                <li><em>Azure</em>: OpenAI + Functions for agent coordination</li>
+                <li><em>Alternative</em>: AutoGen, LangChain</li>
+            </ul>
+            <p><strong>When to Use</strong>:</p>
+            <ul>
+                <li>Tasks requiring multiple specialized skills</li>
+                <li>Complex workflows needing parallel processing</li>
+                <li>Projects requiring cross-validation</li>
+                <li>Scenarios needing checks and balances</li>
+            </ul>
+            <div class="warning-box">
+                <p><strong>⚠️ Complexity Warning:</strong></p>
+                <ul>
+                    <li>Complex agent orchestration required</li>
+                    <li>Higher API costs (multiple agents)</li>
+                    <li>More complex error handling</li>
+                    <li>Increased latency potential</li>
+                </ul>
+                <p><strong>💰 Cost Consideration:</strong> Multiply per-token costs by number of agents</p>
+                <p><strong>🔄 Maintenance:</strong> Regular agent behavior monitoring needed</p>
+            </div>
+            <a href="#start" class="button" data-target="start">New AI Project</a>
+        </section>
+
+        <section id="content_processing" class="card">
+            <h2>Choose Content Processing Approach</h2>
+            <p>How complex is your content generation need?</p>
+            <a href="#prompt_engineering" class="button" data-target="prompt_engineering">Basic content → Use Prompt Engineering</a>
+            <a href="#validation_rules" class="button" data-target="validation_rules">Structured output → Add Validation Rules</a>
+            <a href="#fine_tuning" class="button" data-target="fine_tuning">Domain-specific → Use Fine-Tuning</a>
+            <a href="#multi_model" class="button" data-target="multi_model">Multiple modalities → Use Multi-Model AI</a>
+            <a href="#multi_agent" class="button" data-target="multi_agent">Complex tasks requiring specialized roles → Use Multi-Agent Systems</a>
+        </section>
+
+        <section id="realtime_processing" class="card">
+            <h2>Choose Real-Time Processing Approach</h2>
+            <a href="#function_calling_realtime" class="button" data-target="function_calling_realtime">Simple data lookups → Use Function Calling</a>
+            <a href="#realtime_yes" class="button" data-target="realtime_yes">Continuous data streams → Use Real-Time Pipeline</a>
+            <a href="#hybrid_rag" class="button" data-target="hybrid_rag">Mixed data sources → Use Hybrid RAG</a>
+        </section>
+
+        <section id="complex_generation" class="card">
+            <h2>Complex Content Generation</h2>
+            <p>Does the content need domain expertise?</p>
+            <a href="#fine_tuning" class="button" data-target="fine_tuning">Yes → Use Fine-Tuning</a>
+            <a href="#prompt_engineering" class="button" data-target="prompt_engineering">No → Use Prompt Engineering</a>
+        </section>
+
+        <section id="automated_workflow" class="card">
+            <h2>Choose Workflow Automation Type</h2>
+            <p>Does the workflow involve AI components?</p>
+            <a href="#hybrid_ai" class="button" data-target="hybrid_ai">Yes → Use Hybrid AI</a>
+            <a href="#orchestration_yes" class="button" data-target="orchestration_yes">No → Use Workflow Orchestration</a>
+        </section>
+
+        <section id="options" class="card">
+            <h2>Choose Implementation Approach</h2>
+            <a href="#content_processing" class="button" data-target="content_processing">Content Generation</a>
+            <a href="#realtime_processing" class="button" data-target="realtime_processing">Real-Time Processing</a>
+            <a href="#automated_workflow" class="button" data-target="automated_workflow">Workflow Automation</a>
+            <a href="#multi_agent" class="button" data-target="multi_agent">Multi-Agent Systems</a>
+            <a href="#types_ai_automation" class="button" data-target="types_ai_automation">View All Options</a>
+        </section>
+
+    </div>
+    <script src="script.js"></script>
+    <section id="terms" class="card">
+        <h2>Terms of Service</h2>
+        <p>This tool is proprietary and may not be copied, distributed, or used without express permission from Violet O.</p>
+        <p>© 2025. This tool is protected by copyright. All rights reserved. This work may not be reproduced, distributed, or modified without express written permission.</p>
+    </section>
+    </section>
+</body>
+</html>
