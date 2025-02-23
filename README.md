@@ -43,7 +43,7 @@ This decision tree tool helps you navigate the complex landscape of AI implement
 
 ## Getting Started
 
-1. Open `Ai Implementation Decision Tree v2.html` in a modern web browser
+1. Open `index.html` in a modern web browser -or- go to the hosted page https://visprogithub.github.io/AI_Decision_Tree_Text_Adventure
 2. Click the starting question that best matches your needs
 3. Follow the decision path based on your requirements
 4. Review the detailed recommendation for your use case
