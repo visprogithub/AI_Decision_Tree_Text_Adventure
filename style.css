@@ -12,6 +12,8 @@ body {
     max-width: 960px;
     margin: 20px auto;
     padding: 20px;
+    margin-bottom: 250px; /* Increase bottom margin to clear the footer */
+    padding-bottom: 20px;
 }
 
 /* Card Styles */
@@ -23,6 +25,7 @@ body {
     padding: 20px;
     text-align: left;
     display: none; /* Hide all cards by default */
+    padding-bottom: 30px; /* Add extra padding at bottom of cards */
 }
 
 .card.active {
@@ -40,6 +43,10 @@ body {
     color: #212A31;
 }
 
+.card:last-child {
+    margin-bottom: 50px; /* Extra margin for the last card */
+}
+
 /* Button Styles */
 .button {
     display: block;
@@ -54,6 +61,12 @@ body {
 
 .button:hover {
     background-color: #124E66;
+}
+
+.card .button[href="#start"] {
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1001; /* Ensure button stays above footer */
 }
 
 /* Back Button Styles */
@@ -140,8 +153,48 @@ body {
 @media screen and (max-width: 768px) {
     #types_ai_automation table {
         display: block;
-        overflow-x: auto;
-        white-space: nowrap;
+        overflow-x: visible;
+        white-space: normal;
+        font-size: 14px;
+    }
+
+    #types_ai_automation td,
+    #types_ai_automation th {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 8px;
+    }
+
+    #types_ai_automation td:first-child {
+        background-color: #f8f9fa;
+        border-top: 2px solid #ddd;
+        padding-top: 12px;
+        font-weight: bold;
+    }
+
+    #types_ai_automation th {
+        display: none; /* Hide headers since we're stacking */
+    }
+
+    /* Add some breathing room between entries */
+    #types_ai_automation tr {
+        margin-bottom: 15px;
+        display: block;
+    }
+
+    /* Make description text wrap properly */
+    #types_ai_automation td:last-child {
+        border-bottom: none;
+        padding-bottom: 15px;
+    }
+
+    /* Ensure table container doesn't cause horizontal scroll */
+    #types_ai_automation {
+        width: 100%;
+        overflow-x: hidden;
+        margin: 0;
+        padding: 10px 0;
     }
 }
 
@@ -173,6 +226,7 @@ body {
     content: '⚠️';
     margin-right: 5px;
 }
+
 /* Fixed Footer Styles */
 .fixed-footer {
     position: fixed;
@@ -185,6 +239,8 @@ body {
     font-size: 0.9em;
     z-index: 1000;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    max-height: 200px; /* Limit maximum height */
+    overflow-y: auto; /* Make scrollable if needed */
 }
 
 .disclaimer-box {
@@ -201,4 +257,97 @@ body {
     color: #666;
     margin-top: 5px;
 }
+
+/* Mobile-Specific Improvements */
+@media screen and (max-width: 768px) {
+    /* Improve container spacing */
+    .container {
+        margin: 10px auto;
+        padding: 10px;
+        margin-bottom: 180px; /* Reduced footer clearance for mobile */
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* Make cards fit better on mobile */
+    .card {
+        font-size: 16px;
+        padding: 15px;
+        padding-bottom: 60px; /* Extra space for buttons */
+        word-wrap: break-word;
+        margin: 10px 5px;
+        width: auto;
+    }
+
+    /* Improve button layout on mobile */
+    .button {
+        padding: 12px 15px;
+        margin: 6px 0;
+        font-size: 15px;
+        min-height: 44px;
+        width: calc(100% - 10px); /* Account for margins */
+        box-sizing: border-box;
+        white-space: normal; /* Allow text to wrap */
+        line-height: 1.3;
+    }
+
+    /* Ensure last button has space before footer */
+    .card .button[href="#start"] {
+        margin-bottom: 30px;
+    }
+
+    /* Adjust footer for mobile */
+    .fixed-footer {
+        padding: 8px;
+        max-height: 120px; /* Shorter footer */
+    }
+
+    .disclaimer-box {
+        font-size: 0.75em;
+        padding: 6px;
+        margin-bottom: 5px;
+    }
+
+    .copyright {
+        font-size: 0.7em;
+    }
+
+    /* Prevent horizontal scrolling */
+    body {
+        overflow-x: hidden;
+        width: 100%;
+    }
+}
+
+/* Ensure content doesn't overflow on very small screens */
+@media screen and (max-width: 320px) {
+    .button {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+
+    .card {
+        padding: 12px;
+        padding-bottom: 50px;
+    }
+
+    #types_ai_automation td,
+    #types_ai_automation th {
+        padding: 6px;
+        font-size: 13px;
+    }
+}
+
+/* Add specific iPhone notch handling */
+@supports (padding: max(0px)) {
+    .fixed-footer {
+        padding-bottom: max(15px, env(safe-area-inset-bottom));
+    }
+    
+    .container {
+        padding-left: max(20px, env(safe-area-inset-left));
+        padding-right: max(20px, env(safe-area-inset-right));
+    }
+}
+
 /* Add more styles as needed */
