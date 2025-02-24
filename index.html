@@ -6,6 +6,7 @@
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>AI Implementation Decision Tree</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -64,12 +65,16 @@
             <h2>What kind of content is being generated?</h2>
             <a href="#basic_content" class="button" data-target="basic_content">Basic (emails, simple text responses)</a>
             <a href="#complex_content" class="button" data-target="complex_content">Complex (medical reports, legal summaries, financial statements)</a>
+            <!-- Add new path to fine-tuning -->
+            <a href="#fine_tuning_check" class="button" data-target="fine_tuning_check">Need specialized domain knowledge? Consider Fine-Tuning</a>
         </section>
 
         <section id="complex_content" class="card">
             <h2>Does the AI need to explain its decisions?</h2>
             <a href="#explain_yes" class="button" data-target="explain_yes">Yes, AI needs to explain its decisions</a>
             <a href="#explain_no" class="button" data-target="explain_no">No, AI does not need to explain its decisions</a>
+            <!-- Add new path to fine-tuning -->
+            <a href="#fine_tuning_check" class="button" data-target="fine_tuning_check">Need domain-specific accuracy? Consider Fine-Tuning</a>
         </section>
 
         <section id="rag" class="card">
@@ -89,7 +94,6 @@
                 <li>Generate answers via <strong>Bedrock</strong>/<strong>Azure OpenAI</strong>.</li>
                 <li>Add source citations.</li>
             </ol>
-            <p><strong>Visual</strong>: Magnifying glass over docs + chatbot.</p>
             <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
         
@@ -360,7 +364,22 @@
                 <li>Add rules (e.g., “Reject if score < 50%”).</li>
                 <li>Audit decisions.</li>
             </ol>
-            <p><strong>Visual</strong>: Yin-yang (AI + rules).</p>
+            <div class="warning-box">
+                <p><strong>⚠️ Mixed Expertise Needed:</strong></p>
+                <ul>
+                    <li>ML model development skills</li>
+                    <li>Business rules implementation</li>
+                    <li>Integration expertise</li>
+                    <li>Testing across both systems</li>
+                </ul>
+                <p><strong>💡 Simplified Approaches:</strong></p>
+                <ul>
+                    <li>Low-code decision platforms (e.g., DataRobot)</li>
+                    <li>Business rules engines with ML integrations</li>
+                    <li>Cloud-managed hybrid solutions</li>
+                </ul>
+                <p><strong>🎯 Consider:</strong> Start with rules-only, add ML incrementally</p>
+            </div>
             <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
@@ -401,6 +420,22 @@
                 <li>Deploy as an API endpoint with <strong>SageMaker</strong>/<strong>Azure ML</strong>.</li>
                 <li>Integrate into apps via REST APIs.</li>
             </ol>
+            <div class="warning-box">
+                <p><strong>⚠️ Traditional ML Considerations:</strong> Expect $1000+ for initial training</p>
+                <ul>
+                    <li>Data preparation and cleaning expertise needed</li>
+                    <li>Model selection and tuning knowledge required</li>
+                    <li>Training infrastructure management</li>
+                    <li>Ongoing model maintenance</li>
+                </ul>
+                <p><strong>💡 Modern Options:</strong></p>
+                <ul>
+                    <li>Foundation models via API (faster deployment)</li>
+                    <li>Cloud AutoML services (reduced expertise needed)</li>
+                    <li>Transfer learning from existing models</li>
+                </ul>
+                <p><strong>⚡ Quick Start:</strong> Consider API-first approach before custom model development</p>
+            </div>
             <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
@@ -421,6 +456,22 @@
                 <li>Train models with <strong>SageMaker</strong>/<strong>Azure ML AutoML</strong>.</li>
                 <li>Deploy for batch or real-time predictions.</li>
             </ol>
+            <div class="warning-box">
+                <p><strong>⚠️ Expertise Requirements:</strong></p>
+                <ul>
+                    <li>Data engineering skills for ETL pipelines</li>
+                    <li>Statistical analysis expertise</li>
+                    <li>Feature engineering knowledge</li>
+                    <li>Model evaluation experience</li>
+                </ul>
+                <p><strong>💡 Modern Alternatives:</strong></p>
+                <ul>
+                    <li>AutoML platforms (e.g., Azure AutoML, AWS SageMaker Autopilot)</li>
+                    <li>No-code ML tools (e.g., Obviously AI, MindsDB)</li>
+                    <li>Pre-trained models via APIs (where applicable)</li>
+                </ul>
+                <p><strong>👥 Team Impact:</strong> Consider AutoML for smaller teams without ML specialists</p>
+            </div>
             <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
@@ -455,8 +506,8 @@
                         <td>Stores and reuses frequent responses to save costs, ideal for small AI models.</td>
                     </tr>
                     <tr>
-                        <td>Multi-Model/Multi-Modal AI</td>
-                        <td>Combines multiple AI models or has a single model that can handle multiple forms of media and text (e.g., LLM + vision) to handle tasks requiring diverse capabilities.</td>
+                        <td>Multi-Model AI</td>
+                        <td>Combines multiple AI models (e.g., LLM + vision) to handle tasks requiring diverse capabilities.</td>
                     </tr>
                     <tr>
                         <td>API Chaining</td>
@@ -506,7 +557,7 @@
                         <td>Standard/Standalone AI Model</td>
                         <td>A single AI model trained for a specific task (e.g., image classification) without external data.</td>
                     </tr>
-                     <tr>
+                    <tr>
                         <td>AI Agents</td>
                         <td>Autonomous AI systems that can perceive, decide, and act on tasks (e.g., customer service bot that handles queries independently).</td>
                     </tr>
@@ -667,8 +718,22 @@
 
         <section id="fine_tuning_check" class="card">
             <h2>Fine-Tuning Validation Check</h2>
-            <p><strong>⚠️ Warning: Fine-tuning is expensive and resource-intensive</strong></p>
-            <p>Before proceeding, confirm you have:</p>
+            <p><strong>⚠️ Warning: Traditional fine-tuning is expensive and resource-intensive</strong></p>
+            <p>Before proceeding, consider these options:</p>
+            
+            <div class="warning-box">
+                <p><strong>💡 Automated Fine-Tuning Platforms:</strong></p>
+                <ul>
+                    <li>OpenAI Fine-tuning UI (simplest approach)</li>
+                    <li>Azure OpenAI Studio (integrated with Azure)</li>
+                    <li>Amazon Bedrock Model Customization</li>
+                    <li>AWS SageMaker JumpStart (automated fine-tuning)</li>
+                    <li>Amazon Q Business (no-code customization)</li>
+                </ul>
+                <p><strong>🎯 Quick Start:</strong> Try automated platforms first</p>
+            </div>
+
+            <p>For traditional fine-tuning, confirm you have:</p>
             <ul>
                 <li>At least 1000+ high-quality training examples</li>
                 <li>Budget for compute costs ($1000+ typically)</li>
@@ -677,6 +742,7 @@
             </ul>
             <p>Have you considered alternatives?</p>
             <ul>
+                <li>Automated fine-tuning platforms (easiest)</li>
                 <li>Prompt engineering with examples (cheaper)</li>
                 <li>RAG with domain documents (faster)</li>
                 <li>API-based solutions (simpler)</li>
@@ -692,10 +758,31 @@
             <p><strong>Example</strong>: Medical terminology, legal language.</p>
             <p><strong>Tools</strong>:</p>
             <ul>
-                <li><em>AWS</em>: SageMaker, Bedrock</li>
-                <li><em>Azure</em>: Azure ML, OpenAI Studio</li>
-                <li><em>Alternative</em>: Hugging Face</li>
+                <li><em>Automated</em>: OpenAI Fine-tuning UI, Azure OpenAI Studio, Amazon Bedrock</li>
+                <li><em>Cloud</em>: SageMaker JumpStart, Azure AutoML</li>
+                <li><em>Enterprise</em>: Amazon Q Business, Azure Machine Learning</li>
+                <li><em>Traditional</em>: Hugging Face, PyTorch, TensorFlow</li>
             </ul>
+            <p><strong>Adopt</strong>:</p>
+            <ol>
+                <li>Start with automated platforms</li>
+                <li>Evaluate results & accuracy</li>
+                <li>Consider traditional fine-tuning only if needed</li>
+            </ol>
+            <div class="warning-box">
+                <p><strong>💡 Implementation Options:</strong></p>
+                <ul>
+                    <li>No-Code: OpenAI UI, Amazon Q Business</li>
+                    <li>Low-Code: Azure OpenAI Studio, Bedrock console</li>
+                    <li>Custom: SageMaker, Azure ML</li>
+                </ul>
+                <p><strong>💰 Cost Range:</strong></p>
+                <ul>
+                    <li>Automated Platforms: $100-500</li>
+                    <li>Traditional Fine-tuning: $1000+</li>
+                </ul>
+                <p><strong>⚡ Recommendation:</strong> Start with automated options before considering traditional fine-tuning</p>
+            </div>
             <p><strong>Adopt</strong>:</p>
             <ol>
                 <li>Prepare training data</li>
@@ -721,6 +808,21 @@
             <h2>Traditional Machine Learning</h2>
             <p>For structured data analysis, traditional ML is often more efficient than deep learning.</p>
             <a href="#traditional_ml" class="button" data-target="traditional_ml">Use Traditional Machine Learning</a>
+            <div class="warning-box">
+                <p><strong>⚠️ Traditional Requirements:</strong></p>
+                <ul>
+                    <li>Data preprocessing expertise</li>
+                    <li>Feature engineering skills</li>
+                    <li>Statistical analysis knowledge</li>
+                </ul>
+                <p><strong>💡 Modern Alternatives:</strong></p>
+                <ul>
+                    <li>Automated feature engineering tools</li>
+                    <li>Self-service analytics platforms</li>
+                    <li>No-code prediction tools</li>
+                </ul>
+                <p><strong>🚀 Recommendation:</strong> Start with AutoML platforms unless you have specific needs requiring custom ML</p>
+            </div>
         </section>
 
         <section id="unstructured_data" class="card">
@@ -728,6 +830,8 @@
             <p>For unstructured data, modern LLMs provide better understanding.</p>
             <a href="#explain_yes" class="button" data-target="explain_yes">Need explanations? Use Chain-of-Thought</a>
             <a href="#standard_ai" class="button" data-target="standard_ai">No explanations needed? Use Standard AI</a>
+            <!-- Add new path to fine-tuning -->
+            <a href="#fine_tuning_check" class="button" data-target="fine_tuning_check">Need domain expertise? Consider Fine-Tuning</a>
         </section>
 
         <section id="hybrid_decision" class="card">
@@ -751,8 +855,8 @@
         </section>
 
         <section id="multi_model" class="card">
-            <h2>Multi-Model AI/Multi-Modal</h2>
-            <p><strong>What it does</strong>: Combines multiple AI models or has a single model that handles multiple modalities for complex tasks.</p>
+            <h2>Multi-Model AI</h2>
+            <p><strong>What it does</strong>: Combines multiple AI models for complex tasks.</p>
             <p><strong>Example</strong>: Vision + Language for image captioning.</p>
             <p><strong>Tools</strong>:</p>
             <ul>
@@ -806,7 +910,7 @@
             <ul>
                 <li><em>AWS</em>: Bedrock + Lambda for agent orchestration</li>
                 <li><em>Azure</em>: OpenAI + Functions for agent coordination</li>
-                <li><em>Alternative</em>: AutoGen(Magentic One), LangChain, CrewAI</li>
+                <li><em>Alternative</em>: AutoGen, LangChain</li>
             </ul>
             <p><strong>When to Use</strong>:</p>
             <ul>
@@ -835,7 +939,7 @@
             <a href="#prompt_engineering" class="button" data-target="prompt_engineering">Basic content → Use Prompt Engineering</a>
             <a href="#validation_rules" class="button" data-target="validation_rules">Structured output → Add Validation Rules</a>
             <a href="#fine_tuning" class="button" data-target="fine_tuning">Domain-specific → Use Fine-Tuning</a>
-            <a href="#multi_model" class="button" data-target="multi_model">Multiple modalities → Use Multi-Model AI/Multi-Modal</a>
+            <a href="#multi_model" class="button" data-target="multi_model">Multiple modalities → Use Multi-Model AI</a>
             <a href="#multi_agent" class="button" data-target="multi_agent">Complex tasks requiring specialized roles → Use Multi-Agent Systems</a>
         </section>
 
