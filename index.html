@@ -14,10 +14,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Updated navigation buttons -->
+    <nav class="nav-buttons">
+        <button class="back-button" aria-label="Go back">←</button>
+        <button class="home-button" aria-label="Go home">🏠</button>
+    </nav>
+    
     <div class="container">
-        <button class="back-button" onclick="goBack()">←</button>
         <section id="start" class="card active">
-            <h2>What do you need the AI to do?</h2>
+            <h2>Whato you need the AI to do?</h2>
             <div class="button-container">
             <a href="#answers" class="button" data-target="answers">Find answers in documents</a>
             <a href="#automate" class="button" data-target="automate">Automate multi-step processes</a>
@@ -88,13 +93,12 @@
                 <li><em>Azure</em>: AI Search + Azure OpenAI</li>
                 <li><em>Alternative</em>: Elasticsearch, Pinecone</li>
             </ul>
-            <p><strong>Adopt</strong>:</p>
+            <p><strong>High Level Implemntatioon Steps:</strong>:</p>
             <ol>
                 <li>Index docs with <strong>Kendra</strong>/<strong>AI Search</strong>.</li>
                 <li>Generate answers via <strong>Bedrock</strong>/<strong>Azure OpenAI</strong>.</li>
                 <li>Add source citations.</li>
             </ol>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
         
         <section id="function_calling_search" class="card">
@@ -108,13 +112,12 @@
                 <li><em>Azure</em>: Azure Functions</li>
                 <li><em>Alternative</em>: Zapier</li>
             </ul>
-            <p><strong>Adopt</strong>:</p>
+            <p><strong>High Level Implemntatioon Steps:</strong>:</p>
             <ol>
                 <li>Expose APIs (e.g., CRM, inventory).</li>
                 <li>Call APIs via <strong>Lambda</strong>/<strong>Azure Functions</strong>.</li>
                 <li>Monitor latency.</li>
             </ol>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
         <section id="hybrid_rag" class="card">
@@ -128,7 +131,7 @@
                 <li><em>Azure</em>: AI Search + SQL DB</li>
                 <li><em>Alternative</em>: Databricks</li>
             </ul>
-            <p><strong>Adopt</strong>:</p>
+            <p><strong>High Level Implemntatioon Steps:</strong>:</p>
             <ol>
                 <li>Link structured data (e.g., product SKUs) to documents.</li>
                 <li>Use <strong>Databricks</strong> for unified queries.</li>
@@ -145,7 +148,6 @@
                 <p><strong>💰 Cost Impact:</strong> Higher than standard RAG</p>
                 <p><strong>🔄 Maintenance:</strong> Regular updates needed</p>
             </div>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
         <section id="graph_rag" class="card">
@@ -159,7 +161,7 @@
                 <li><em>Azure</em>: Cosmos DB (Graph API)</li>
                 <li><em>Alternative</em>: Neo4j</li>
             </ul>
-            <p><strong>Adopt</strong>:</p>
+            <p><strong>High Level Implemntatioon Steps:</strong>:</p>
             <ol>
                 <li>Model relationships (e.g., customer ↔ product).</li>
                 <li>Query with <strong>Neptune/Cosmos DB</strong>.</li>
@@ -176,7 +178,6 @@
                 <p><strong>⏱️ Setup Time:</strong> Longer initial setup for graph modeling</p>
                 <p><strong>👥 Team Needs:</strong> Graph DB experts, data modelers</p>
             </div>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
         <section id="agentic_rag" class="card">
@@ -190,7 +191,7 @@
                 <li><em>Azure</em>: Logic Apps + Functions</li>
                 <li><em>Alternative</em>: LangChain</li>
             </ul>
-            <p><strong>Adopt</strong>:</p>
+            <p><strong>High Level Implemntatioon Steps:</strong>:</p>
             <ol>
                 <li>Define rules (e.g., “Use Kendra for technical queries”).</li>
                 <li>Route dynamically with <strong>LangChain Agents</strong>.</li>
@@ -207,7 +208,6 @@
                 <p><strong>🔄 Maintenance:</strong> Regular monitoring of agent decisions and retrieval patterns</p>
                 <p><strong>💰 Cost Note:</strong> Higher costs due to multiple API calls per query</p>
             </div>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
         <section id="cag" class="card">
@@ -221,13 +221,12 @@
                 <li><em>Azure</em>: Azure Cache for Redis</li>
                 <li><em>Alternative</em>: Redis Enterprise</li>
             </ul>
-            <p><strong>Adopt</strong>:</p>
+            <p><strong>High Level Implemntatioon Steps:</strong>:</p>
             <ol>
                 <li>Cache common queries (e.g., FAQs).</li>
                 <li>Set TTL to refresh stale answers.</li>
                 <li>Track cache hit rates.</li>
             </ol>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
         <section id="realtime_data" class="card">
@@ -247,7 +246,7 @@
                 <li><em>Azure</em>: Event Hubs + Azure ML</li>
                 <li><em>Alternative</em>: Confluent</li>
             </ul>
-            <p><strong>Adopt</strong>:</p>
+            <p><strong>High Level Implemntatioon Steps:</strong>:</p>
             <ol>
                 <li>Stream data via <strong>Kinesis</strong>/<strong>Event Hubs</strong>.</li>
                 <li>Process with <strong>SageMaker</strong>/<strong>Azure ML</strong>.</li>
@@ -264,7 +263,6 @@
                 <p><strong>💰 Infrastructure:</strong> Higher costs for real-time processing</p>
                 <p><strong>⚡ Performance:</strong> Need for careful latency management</p>
             </div>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
         <section id="api_chaining" class="card">
@@ -278,13 +276,12 @@
                 <li><em>Azure</em>: Logic Apps</li>
                 <li><em>Alternative</em>: Apache Airflow</li>
             </ul>
-            <p><strong>Adopt</strong>:</p>
+            <p><strong>High Level Implemntatioon Steps:</strong>:</p>
             <ol>
                 <li>Break workflows into steps.</li>
                 <li>Use <strong>Step Functions</strong>/<strong>Logic Apps</strong> to chain APIs.</li>
                 <li>Add error retries.</li>
             </ol>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
         <section id="orchestration_yes" class="card">
@@ -298,13 +295,12 @@
                 <li><em>Azure</em>: <strong>Logic Apps</strong></li>
                 <li><em>Alternative</em>: Apache Airflow</li>
             </ul>
-            <p><strong>Adopt</strong>:</p>
+            <p><strong>High Level Implemntatioon Steps:</strong>:</p>
             <ol>
                 <li>Define steps visually (AWS/Azure UIs).</li>
                 <li>Add retries for flaky tasks (e.g., API calls).</li>
                 <li>Monitor executions in built-in dashboards.</li>
             </ol>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
         <section id="orchestration_no" class="card">
@@ -318,13 +314,12 @@
                 <li><em>Azure</em>: <strong>Logic Apps</strong> + <strong>Azure Functions</strong></li>
                 <li><em>Alternative</em>: UiPath, Power Automate, Jenkins</li>
             </ul>
-            <p><strong>Adopt</strong>:</p>
+            <p><strong>High Level Implemntatioon Steps:</strong>:</p>
             <ol>
                 <li>Identify repetitive tasks (e.g., CSV → database uploads).</li>
                 <li>Build workflows with <strong>Logic Apps</strong>/<strong>Step Functions</strong>.</li>
                 <li>Monitor and scale with cloud-native dashboards.</li>
             </ol>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
         <section id="prompt_engineering" class="card">
@@ -338,13 +333,12 @@
                 <li><em>Azure</em>: Azure OpenAI Studio</li>
                 <li><em>Alternative</em>: PromptFlow</li>
             </ul>
-            <p><strong>Adopt</strong>:</p>
+            <p><strong>High Level Implemntatioon Steps:</strong>:</p>
             <ol>
                 <li>Iterate prompts (e.g., “Act as a doctor”).</li>
                 <li>Use <strong>PromptFlow</strong> for templates.</li>
                 <li>A/B test responses.</li>
             </ol>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
         <section id="hybrid_ai" class="card">
@@ -358,7 +352,7 @@
                 <li><em>Azure</em>: Azure ML + Logic Apps</li>
                 <li><em>Alternative</em>: Pega</li>
             </ul>
-            <p><strong>Adopt</strong>:</p>
+            <p><strong>High Level Implemntatioon Steps:</strong>:</p>
             <ol>
                 <li>Deploy AI model (e.g., fraud detection).</li>
                 <li>Add rules (e.g., “Reject if score < 50%”).</li>
@@ -380,7 +374,6 @@
                 </ul>
                 <p><strong>🎯 Consider:</strong> Start with rules-only, add ML incrementally</p>
             </div>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
         <section id="function_calling_realtime" class="card">
@@ -394,13 +387,12 @@
                 <li><em>Azure</em>: Azure Functions</li>
                 <li><em>Alternative</em>: Zapier</li>
             </ul>
-            <p><strong>Adopt</strong>:</p>
+            <p><strong>High Level Implemntatioon Steps:</strong>:</p>
             <ol>
                 <li>Expose APIs (e.g., CRM, inventory).</li>
                 <li>Call APIs via <strong>Lambda</strong>/<strong>Azure Functions</strong>.</li>
                 <li>Monitor latency.</li>
             </ol>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
         <section id="standard_ai" class="card">
@@ -414,8 +406,8 @@
                 <li><em>Azure</em>: <strong>Azure Machine Learning Studio</strong></li>
                 <li><em>Alternative</em>: PyTorch, TensorFlow, MLflow</li>
             </ul>
-            <p><strong>Adopt</strong>:</p>
-            <ol>
+            <p><strong>High Level Implemntatioon Steps:</strong>:</p>
+            <ol></ol>
                 <li>Train model on labeled data (e.g., defect images).</li>
                 <li>Deploy as an API endpoint with <strong>SageMaker</strong>/<strong>Azure ML</strong>.</li>
                 <li>Integrate into apps via REST APIs.</li>
@@ -436,7 +428,6 @@
                 </ul>
                 <p><strong>⚡ Quick Start:</strong> Consider API-first approach before custom model development</p>
             </div>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
         <section id="traditional_ml" class="card">
@@ -450,7 +441,7 @@
                 <li><em>Azure</em>: <strong>Azure Machine Learning</strong> (AutoML, linear regression)</li>
                 <li><em>Alternative</em>: Scikit-learn, H2O.ai, SAS</li>
             </ul>
-            <p><strong>Adopt</strong>:</p>
+            <p><strong>High Level Implemntatioon Steps:</strong>:</p>
             <ol>
                 <li>Prepare structured data (e.g., CSV, SQL tables).</li>
                 <li>Train models with <strong>SageMaker</strong>/<strong>Azure ML AutoML</strong>.</li>
@@ -472,7 +463,6 @@
                 </ul>
                 <p><strong>👥 Team Impact:</strong> Consider AutoML for smaller teams without ML specialists</p>
             </div>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
         <section id="types_ai_automation" class="card">
@@ -517,7 +507,7 @@
                         <td>Validation Rules & Post-Processing</td>
                         <td>Ensures generated content follows strict formatting (e.g., JSON, legal templates).</td>
                     </tr>
-                    <tr>
+              
                         <td>Fine-Tuning</td>
                         <td>Trains a base model (e.g., GPT-4) on niche data for domain-specific accuracy.</td>
                     </tr>
@@ -567,7 +557,6 @@
                     </tr>
                 </tbody>
             </table>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
         <section id="ai_vs_automation" class="card">
@@ -587,7 +576,6 @@
                 <li>Azure Functions</li>
                 <li>Power Automate</li>
             </ul>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
         <section id="historical_data" class="card">
@@ -600,7 +588,6 @@
                 <li>Azure ML</li>
                 <li>Scikit-learn</li>
             </ul>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
         <section id="natural_language" class="card">
@@ -613,7 +600,6 @@
                 <li>Neural Networks</li>
                 <li>Deep Learning</li>
             </ul>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
         <section id="complex_multi_step" class="card">
@@ -633,7 +619,6 @@
                 <li>Azure Logic Apps + Cognitive Services</li>
                 <li>Airflow + ML models</li>
             </ul>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
         <section id="no_ai" class="card">
@@ -646,7 +631,6 @@
                 <li>Azure Logic Apps</li>
                 <li>Apache Airflow</li>
             </ul>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
         <section id="explain_yes" class="card">
@@ -660,13 +644,12 @@
                 <li><em>Azure</em>: Azure OpenAI (GPT-4)</li>
                 <li><em>Alternative</em>: Cohere Command</li>
             </ul>
-            <p><strong>Adopt</strong>:</p>
+            <p><strong>High Level Implemntatioon Steps:</strong>:</p>
             <ol>
                 <li>Add "Show your work" to prompts.</li>
                 <li>Use <strong>Claude 3</strong><strong>GPT-4</strong> for built-in CoT.</li>
                 <li>Validate logic.</li>
             </ol>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
         <section id="explain_no" class="card">
@@ -688,13 +671,12 @@
                 <li><em>Azure</em>: Azure OpenAI Studio</li>
                 <li><em>Alternative</em>: LangChain</li>
             </ul>
-            <p><strong>Adopt</strong>:</p>
+            <p><strong>High Level Implemntatioon Steps:</strong>:</p>
             <ol>
                 <li>Create prompt templates</li>
                 <li>Add context and examples</li>
                 <li>Test variations</li>
             </ol>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
         <section id="validation_rules" class="card">
@@ -707,13 +689,12 @@
                 <li><em>Azure</em>: Azure Functions</li>
                 <li><em>Alternative</em>: JSON Schema</li>
             </ul>
-            <p><strong>Adopt</strong>:</p>
+            <p><strong>High Level Implemntatioon Steps:</strong>:</p>
             <ol>
                 <li>Define validation rules</li>
                 <li>Implement post-processing</li>
                 <li>Handle validation failures</li>
             </ol>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
         <section id="fine_tuning_check" class="card">
@@ -763,7 +744,7 @@
                 <li><em>Enterprise</em>: Amazon Q Business, Azure Machine Learning</li>
                 <li><em>Traditional</em>: Hugging Face, PyTorch, TensorFlow</li>
             </ul>
-            <p><strong>Adopt</strong>:</p>
+            <p><strong>High Level Implemntatioon Steps:</strong>:</p>
             <ol>
                 <li>Start with automated platforms</li>
                 <li>Evaluate results & accuracy</li>
@@ -783,7 +764,7 @@
                 </ul>
                 <p><strong>⚡ Recommendation:</strong> Start with automated options before considering traditional fine-tuning</p>
             </div>
-            <p><strong>Adopt</strong>:</p>
+            <p><strong>High Level Implemntatioon Steps:</strong>:</p>
             <ol>
                 <li>Prepare training data</li>
                 <li>Fine-tune base model</li>
@@ -794,7 +775,6 @@
                 <p><strong>⏱️ Time Investment:</strong> 2-4 weeks for proper implementation</p>
                 <p><strong>👥 Team Needs:</strong> ML engineers, domain experts</p>
             </div>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
         <section id="decisions" class="card">
@@ -864,7 +844,7 @@
                 <li><em>Azure</em>: Cognitive Services</li>
                 <li><em>Alternative</em>: Hugging Face Transformers</li>
             </ul>
-            <p><strong>Adopt</strong>:</p>
+            <p><strong>High Level Implemntatioon Steps:</strong>:</p>
             <ol>
                 <li>Identify needed capabilities</li>
                 <li>Select complementary models</li>
@@ -881,7 +861,6 @@
                 <p><strong>💰 Resource Impact:</strong> Multiple model endpoints increase costs</p>
                 <p><strong>🔄 Operations:</strong> More complex monitoring and scaling</p>
             </div>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
         <section id="multi_agent" class="card">
@@ -890,7 +869,7 @@
             <p><strong>Example Use Cases</strong>:</p>
             <ul>
                 <li>Research Assistant Team:
-                    <ul>
+                    <ul></ul>
                         <li>Agent 1: Searches academic papers</li>
                         <li>Agent 2: Analyzes methodology</li>
                         <li>Agent 3: Summarizes findings</li>
@@ -930,7 +909,6 @@
                 <p><strong>💰 Cost Consideration:</strong> Multiply per-token costs by number of agents</p>
                 <p><strong>🔄 Maintenance:</strong> Regular agent behavior monitoring needed</p>
             </div>
-            <a href="#start" class="button" data-target="start">New AI Project</a>
         </section>
 
         <section id="content_processing" class="card">
