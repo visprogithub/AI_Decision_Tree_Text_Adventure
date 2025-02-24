@@ -31,6 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
             showSection(event.state.sectionId);
         }
     });
+
+    // Add click handlers for navigation buttons
+    document.querySelector('.home-button')?.addEventListener('click', goHome);
+    document.querySelector('.back-button')?.addEventListener('click', goBack);
 });
 
 function navigateToSection(sectionId) {
@@ -39,6 +43,7 @@ function navigateToSection(sectionId) {
     showSection(sectionId);
 }
 
+// Update showSection to handle navigation button visibility
 function showSection(sectionId) {
     // Hide previous active section
     if (lastActiveSection) {
@@ -50,9 +55,24 @@ function showSection(sectionId) {
     if (targetSection) {
         targetSection.classList.add('active');
         lastActiveSection = targetSection;
+        
+        // Show/hide back button based on section
+        const backButton = document.querySelector('.back-button');
+        if (backButton) {
+            backButton.style.display = sectionId === 'start' ? 'none' : 'flex';
+        }
+        
+        // Update document title
+        document.title = `AI Implementation - ${targetSection.querySelector('h2').textContent}`;
     }
 }
 
 function goBack() {
     window.history.back();
+}
+
+function goHome() {
+    // Clear history state and navigate to start
+    history.pushState({ sectionId: 'start' }, '', '#start');
+    showSection('start');
 }
